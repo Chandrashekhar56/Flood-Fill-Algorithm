@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title></title>
+</head>
+<body>
+<script>
+	function ValidPixel(arr, rows,cols, x_Co_ordinate,y_Co_ordinate, Previous_Color, New_Color)
+	{
+		if(x_Co_ordinate<0 || x_Co_ordinate>= rows || y_Co_ordinate<0 || y_Co_ordinate>=cols || arr[x_Co_ordinate][y_Co_ordinate]!= Previous_Color
+		|| arr[x_Co_ordinate][y_Co_ordinate]== New_Color)
+			return false;
+		return true;
+	}
+	function function_of_FloodFill_Algo(arr, rows, cols, x_Co_ordinate, y_Co_ordinate, Previous_Color,New_Color)
+	{
+		var queue = [];
+
+		queue.push([x_Co_ordinate, y_Co_ordinate]);
+
+		arr[x_Co_ordinate][y_Co_ordinate] = New_Color;
+
+		while(queue.length > 0)
+		{
+
+			current_Pixel = queue[queue.length - 1];
+			queue.pop();
+
+			var Position_of_X = current_Pixel[0];
+			var Position_of_Y = current_Pixel[1];
+
+			if(ValidPixel(arr,rows, cols , Position_of_X + 1, Position_of_Y, Previous_Color, New_Color))
+			{
+
+				arr[Position_of_X + 1][Position_of_Y] = New_Color;
+				queue.push([Position_of_X + 1, Position_of_Y]);
+			}
+
+			if(ValidPixel(arr,rows, cols , Position_of_X-1, Position_of_Y, Previous_Color, New_Color))
+			{
+				arr[Position_of_X-1][Position_of_Y]=New_Color;
+				queue.push([Position_of_X-1, Position_of_Y]);
+			}
+
+			if(ValidPixel(arr, rows, cols , Position_of_X, Position_of_Y + 1, Previous_Color, New_Color))
+			{
+				arr[Position_of_X][Position_of_Y + 1]= New_Color;
+				queue.push([Position_of_X, Position_of_Y + 1]);
+			}
+
+			if(ValidPixel(arr, rows, cols , Position_of_X, Position_of_Y-1, Previous_Color, New_Color))
+			{
+				arr[Position_of_X][Position_of_Y-1]= New_Color;
+				queue.push([Position_of_X, Position_of_Y-1]);
+			}
+		}
+	}
+	
+	var arr =[
+	[1, 1, 1, 1, 1, 1, 1, 1],
+	[1, 1, 1, 1, 1, 1, 0, 0],
+	[1, 0, 0, 1, 1, 0, 1, 1],
+	[1, 2, 2, 2, 2, 0, 1, 0],
+	[1, 1, 1, 2, 2, 0, 1, 0],
+	[1, 1, 1, 2, 2, 2, 2, 0],
+	[1, 1, 1, 1, 1, 2, 1, 1],
+	[1, 1, 1, 1, 1, 2, 2, 1]];
+
+	var rows = arr.length;
+
+	var cols = arr[0].length;
+
+	var x_Co_ordinate = 4;
+	var y_Co_ordinate = 4;
+
+	var Previous_Color = arr[x_Co_ordinate][y_Co_ordinate];
+
+	var New_Color = 5;
+
+	function_of_FloodFill_Algo(arr, rows, cols , x_Co_ordinate, y_Co_ordinate, Previous_Color,New_Color);
+
+	for(var k = 0; k < rows; k++)
+	{
+		for(var l = 0; l < cols ; l++)
+		{
+			document.write(arr[k][l] + " ");
+		}
+		document.write("</br>");
+	}
+
+</script>
+
+</body>
+</html>
